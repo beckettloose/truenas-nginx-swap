@@ -16,9 +16,8 @@ As TrueNAS SCALE/CE is based on Debian GNU/Linux rather than FreeBSD, some chang
 ## Project Planning and Status
 
 - [x] Update for TrueNAS SCALE/CE changes
-- [ ] Validate on TrueNAS SCALE ElectricEel 24.10
 - [ ] Validate on TrueNAS CE Fangtooth 25.04
-- [ ] Integrate certificate deployment script
+- [ ] Allow automatic trigger of certificate deployment script
 
 ## Installation
 Change to a convenient directory on your TrueNAS server and run `git clone https://github.com/beckettloose/truenas-nginx-swap`
@@ -34,9 +33,10 @@ Available options are:
 * CA_CERT_PATH: Mandatory.  Path to the local CA's root certificate.
 * ACME_SH_PATH: Optional.  Path to the `acme.sh` script.  Defaults to `/root/.acme.sh/acme.sh`.
 * TRUENAS_FQDN: Optional.  Defaults to the FQDN configured for your TrueNAS server.
+* CERT_INSTALL_SCRIPT: Optional. Path to an executable or script to be run after the certificate is retrieved. (passed to `acme.sh --reloadcmd` argument)
 
 ## Execution
-Run the script.  It will back up nginx.conf, replace it with the temporary config, call acme.sh to issue the cert, and then replace nginx.conf with the backed-up version.  **Note:** This script doesn't do anything to deploy the new cert--you may want to investigate [deploy-freenas](https://github.com/danb35/deploy-freenas) for that purpose.
+Run the script.  It will back up nginx.conf, replace it with the temporary config, call acme.sh to issue the cert, and then replace nginx.conf with the backed-up version.  **Note:** This script doesn't do anything to deploy the new cert by default--you may want to investigate [deploy-freenas](https://github.com/danb35/deploy-freenas) for that purpose.
 
 For debugging purposes, add the `-d` flag (`./nginx-swap -d`).  This will run `acme.sh` with the `--debug` option.
 

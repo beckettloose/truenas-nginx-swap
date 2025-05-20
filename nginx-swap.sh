@@ -60,6 +60,10 @@ if [ -z "${CA_CERT_PATH}" ]; then
   exit 1
 fi
 
+if [ -n "${CERT_INSTALL_SCRIPT}" ]; then
+  RELOADCMD="--reloadcmd ${CERT_INSTALL_SCRIPT}"
+fi
+
 # Check the existing nginx.conf, make sure it's the FreeNAS file
 if ! grep 'TrueNAS' /etc/nginx/nginx.conf
 then
@@ -115,7 +119,8 @@ systemctl restart nginx.service
 "${ACME_SH_PATH}" "${ACME_SH_ARGS}" --issue --force -w /tmp \
   -d "${TRUENAS_FQDN}" \
   --server "${CA_URL}" \
-  --ca-bundle "${CA_CERT_PATH}"
+  --ca-bundle "${CA_CERT_PATH}" \
+  "${RELOADCMD}"
 
 # Restore nginx.conf and reload
 cp -f /etc/nginx/nginx.conf.bak /etc/nginx/nginx.conf
