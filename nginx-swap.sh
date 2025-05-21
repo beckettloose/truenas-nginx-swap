@@ -61,7 +61,7 @@ if [ -z "${CA_CERT_PATH}" ]; then
 fi
 
 if [ -n "${CERT_INSTALL_SCRIPT}" ]; then
-  RELOADCMD="--reloadcmd ${CERT_INSTALL_SCRIPT}"
+  RELOADCMD="--renew-hook ${CERT_INSTALL_SCRIPT}"
 fi
 
 # Check the existing nginx.conf, make sure it's the FreeNAS file
