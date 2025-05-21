@@ -117,7 +117,7 @@ if [ -n "${CERT_INSTALL_SCRIPT}" ]; then
     -d "${TRUENAS_FQDN}" \
     --server "${CA_URL}" \
     --ca-bundle "${CA_CERT_PATH}" \
-    --renew-hook "${CERT_INSTALL_SCRIPT}"
+    --reloadcmd "${CERT_INSTALL_SCRIPT}"
 else
   "${ACME_SH_PATH}" --issue --force -w /tmp \
     -d "${TRUENAS_FQDN}" \
