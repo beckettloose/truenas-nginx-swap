@@ -125,6 +125,9 @@ else
     --ca-bundle "${CA_CERT_PATH}"
 fi
 
+# Wait 5 seconds to hopefully avoid weird issues with systemctl
+sleep 5
+
 # Restore nginx.conf and reload
 cp -f /etc/nginx/nginx.conf.bak /etc/nginx/nginx.conf
 systemctl restart nginx.service

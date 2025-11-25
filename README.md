@@ -16,8 +16,8 @@ As TrueNAS SCALE/CE is based on Debian GNU/Linux rather than FreeBSD, some chang
 ## Project Planning and Status
 
 - [x] Update for TrueNAS SCALE/CE changes
-- [ ] Validate on TrueNAS CE Fangtooth 25.04
-- [ ] Allow automatic trigger of certificate deployment script
+- [x] Validate on TrueNAS CE 25.10
+- [x] Allow automatic trigger of certificate deployment script
 
 ## Installation
 Change to a convenient directory on your TrueNAS server and run `git clone https://github.com/beckettloose/truenas-nginx-swap`
