@@ -49,7 +49,7 @@ fi
 #
 #####
 
-# Check that necessary variables were set by nextcloud-config
+# Check that necessary variables were set by nginx-swap-config
 if [ -z "${CA_URL}" ]; then
   echo 'Configuration error: CA_URL must be set'
   exit 1
@@ -60,14 +60,14 @@ if [ -z "${CA_CERT_PATH}" ]; then
   exit 1
 fi
 
-# Check the existing nginx.conf, make sure it's the FreeNAS file
+# Check the existing nginx.conf, make sure it's the TrueNAS file
 if ! grep 'TrueNAS' /etc/nginx/nginx.conf
 then
 	echo "nginx.conf appears to have been modified, aborting."
 	exit 1
 fi
 
-# Back up nginx.conf
+# Back up active nginx.conf
 cp -f /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak
 
 # Create new nginx.conf
@@ -108,7 +108,7 @@ http {
 }
 __EOF__
 
-# Use new configuration
+# Restart nginx to load the new configuration
 systemctl restart nginx.service
 
 # Issue the cert
@@ -128,6 +128,6 @@ fi
 # Wait 5 seconds to hopefully avoid weird issues with systemctl
 sleep 5
 
-# Restore nginx.conf and reload
+# Restore original nginx.conf and restart nginx
 cp -f /etc/nginx/nginx.conf.bak /etc/nginx/nginx.conf
 systemctl restart nginx.service
